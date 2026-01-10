@@ -34,3 +34,32 @@ auth-system/
 ├── backend/        # API Spring Boot
 ├── docker/         # Infraestrutura (Docker / Docker Compose)
 └── README.md
+```
+
+## ⚙️ Funcionalidades
+### 🚧 Projeto em fase de desenvolvimento
+- **Cadastro de usuários**
+- **Login de usuários**
+- **Persistência de dados em banco PostgreSQL**
+- **Criptografia de senhas**
+- **API REST**
+
+## ▶️ Como Executar o Projeto
+### 1️⃣ Build do Backend
+```bash
+cd backend
+mvn clean package -DskipTests
+```
+### 2️⃣ Subir os Containers com Docker
+```bash
+cd ../docker
+docker compose up --build
+```
+## 🌐 Acesso à API
+Após a execução, a API estará disponível em:
+```bash
+http://localhost:8080
+```
+## 👨‍💻 Autor - Deyvson Lucas
+Desenvolvedor em formação – Backend Java
+📌 Projeto desenvolvido para fins de estudo e evolução profissional.
