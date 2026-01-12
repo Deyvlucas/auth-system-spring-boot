@@ -7,6 +7,7 @@ Este projeto é um **estudo prático de backend**, desenvolvido com foco em **bo
 O sistema consiste em uma **API REST de autenticação**, com funcionalidades de **cadastro e login de usuários**, utilizando **Spring Boot**, **PostgreSQL** e **Docker**.
 
 O objetivo principal é evoluir no entendimento da **estrutura correta de um projeto profissional**, passando por:
+
 - Planejamento
 - Infraestrutura
 - Versionamento
@@ -37,29 +38,40 @@ auth-system/
 ```
 
 ## ⚙️ Funcionalidades
+
 ### 🚧 Projeto em fase de desenvolvimento
+
 - **Cadastro de usuários**
 - **Login de usuários**
 - **Persistência de dados em banco PostgreSQL**
 - **Criptografia de senhas**
-- **API REST**
+- **API REST com Spring boot**
 
 ## ▶️ Como Executar o Projeto
+
 ### 1️⃣ Build do Backend
+
 ```bash
 cd backend
 mvn clean package -DskipTests
 ```
+
 ### 2️⃣ Subir os Containers com Docker
+
 ```bash
 cd ../docker
 docker compose up --build
 ```
+
 ## 🌐 Acesso à API
+
 Após a execução, a API estará disponível em:
+
 ```bash
 http://localhost:8080
 ```
+
 ## 👨‍💻 Autor - Deyvson Lucas
+
 Desenvolvedor em formação – Backend Java
 📌 Projeto desenvolvido para fins de estudo e evolução profissional.
