@@ -2,6 +2,8 @@ package com.gltec.auth.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore // Quando eu esquecer de usar algum DTO, o spring nunca envia o password para o frontend!
     private String password;
 
     @Column(name = "created_at", nullable = false)

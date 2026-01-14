@@ -1,16 +1,17 @@
 package com.gltec.auth.controller;
 
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gltec.auth.model.User;
+import com.gltec.auth.dto.LoginRequestDTO;
+import com.gltec.auth.dto.RegisterRequestDTO;
+import com.gltec.auth.dto.UserResponseDTO;
 import com.gltec.auth.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController // Anotação para indicar que essa classe é um controlador e que ela vai lidar com as requisições HTTP, como POST, GET, etc e retornar respostas em JSON
@@ -21,27 +22,31 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final UserService userService;
-
+    // Metodo para cadastrar o usuário
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody Map<String, String> body) {
+    public ResponseEntity<UserResponseDTO> register(@RequestBody RegisterRequestDTO request) {
 
-        User user = userService.registerUser(
-                body.get("name"),
-                body.get("email"),
-                body.get("password")
+        UserResponseDTO response = userService.registerUser(
+                request.getName(),
+                request.getEmail(),
+                request.getPassword()
         );
 
-        return ResponseEntity.ok(user); // Retorna o usuário cadastrado
+        return ResponseEntity.ok(response); // Retorna a resposta com o status 200
+
     }
 
+    // Metodo para autenticar o usuário
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody Map<String, String> body) {
+    public ResponseEntity<UserResponseDTO> login(
+        @Valid @RequestBody LoginRequestDTO dto) {
 
-        User user = userService.authenticate(
-                body.get("email"),
-                body.get("password")
-        );
+    return ResponseEntity.ok(
+            userService.authenticate(
+                    dto.getEmail(),
+                    dto.getPassword()
+            )
+    );
+}
 
-        return ResponseEntity.ok(user);
-    }
 }

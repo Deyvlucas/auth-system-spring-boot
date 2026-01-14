@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
+import com.gltec.auth.dto.UserResponseDTO;
 import com.gltec.auth.model.User;
 import com.gltec.auth.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service // indica que essa classe contem uma logica de negócio ou regra de negócio.
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     // Metodo para cadastrar o usuário
-    public User registerUser(String name, String email, String password) {
+    public UserResponseDTO registerUser(String name, String email, String password) {
 
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already registered");
@@ -29,19 +31,27 @@ public class UserService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return userRepository.save(user);
+        return toResponse(userRepository.save(user));
     }
 
     // Metodo para autenticar o usuário
-    public User authenticate(String email, String password) {
+    public UserResponseDTO authenticate(String email, String password) {
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid password");
-        }
+    if (!user.getPassword().equals(password)) {
+        throw new RuntimeException("Invalid password");
+    }
 
-        return user;
+    return toResponse(user);
+}
+    // Metodo para converter o usuário para o DTO
+    private UserResponseDTO toResponse(User user) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .build();
     }
 }
